@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} - UST OPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='adminlte.css') }}">
+</head>
+<body class="hold-transition login-page">
+<nav>
+  <h1><a href="{{ url_for('index') }}">UST OPS</a></h1>
+  <ul>
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="card">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='adminlte.js') }}"></script>
+</body>
+</html>
