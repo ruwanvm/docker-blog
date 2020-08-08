@@ -5,11 +5,27 @@
 {% endblock %}
 
 {% block content %}
+  <div class="card-body">
   <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+	<div class="col-sm-12">
+		<!-- text input -->
+		<div class="form-group">
+			<label>Title</label>
+			<input name="title" id="title" value="{{ request.form['title'] }}" required>
+		</div>
+	</div>
+    <div class="col-sm-12">
+		<!-- textarea -->
+		<div class="form-group">
+			<label for="body">Body</label>
+			<textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+		</div>
+	</div>    
     <input type="submit" value="Save">
   </form>
+  <hr>
+  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+    <input class="btn btn-block btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+  </div>
 {% endblock %}

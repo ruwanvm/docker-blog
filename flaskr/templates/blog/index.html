@@ -9,18 +9,34 @@
 
 {% block content %}
   {% for post in posts %}
-    <article class="timeline-item">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="timeline-header">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+	<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- Default box -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ post['title'] }}</h3>
+                <div class="card-tools">
+                  {% if g.user['id'] == post['author_id'] %}
+					<a class="btn btn-primary btn-sm" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+				  {% endif %}
+                </div>
+              </div>
+              <div class="card-body">
+                {{ post['body'] }}
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d %H:%M') }}</div>
+              <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+          </div>
         </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="btn btn-primary btn-sm" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="timeline-body">{{ post['body'] }}</p>
-    </article>
+      </div>
+    </section>
+    <!-- /.content -->
     {% if not loop.last %}
       <hr>
     {% endif %}
